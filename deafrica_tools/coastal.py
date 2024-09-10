@@ -18,7 +18,6 @@ import requests
 import xarray as xr
 from datacube.utils.geometry import CRS
 from odc.geo.geobox import GeoBox
-from otps import TimePoint, predict_tide
 from owslib.wfs import WebFeatureService
 from pandas.plotting import register_matplotlib_converters
 from scipy import stats
@@ -1026,7 +1025,8 @@ def transect_distances(transects_gdf, lines_gdf, mode='distance'):
 def get_coastlines(bbox: tuple,
                    crs="EPSG:4326",
                    layer="shorelines",
-                   drop_wms=True) -> gpd.GeoDataFrame:
+                   drop_wms=True,
+                   timeout=180) -> gpd.GeoDataFrame:
     """
     Get DE Africa Coastlines data for a provided bounding box using WFS.
     
@@ -1078,7 +1078,7 @@ def get_coastlines(bbox: tuple,
         layer_name = [i for i in available_layers if "rates_of_change" in i]
 
     # Query WFS.
-    wfs = WebFeatureService(url=WFS_ADDRESS, version="1.1.0")
+    wfs = WebFeatureService(url=WFS_ADDRESS, version="1.1.0", timeout=timeout)
     response = wfs.getfeature(typename=layer_name,
                               bbox=tuple(bbox) + (crs,),
                               outputFormat="json")
