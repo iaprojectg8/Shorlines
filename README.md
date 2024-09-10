@@ -35,3 +35,6 @@ pip install -r requirements.txt
 To run the `shorlines.ipynb` you need to have a code editor that supports that kind of file like **Visual Studio Code** or **Jupyter**
 
 Finally you can run everything or run cell by cell with the play button.
+
+It is possible that you have problems sometimes on the first cell when importing the fiona module.
+It is not happening each time, I did not figured out what was the problem but it is maybe because I have integrated the deafrica_tools package in the repo.
